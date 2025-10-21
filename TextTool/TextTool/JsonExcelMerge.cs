@@ -401,13 +401,13 @@ namespace TextTool
             bool isSingle = root == null;
 
             JObject childObj = null;
-            JArray childArray = null;
+            JObject childArray = null;
 
             if (isSingle)
             {
                 if (isList)
                 {
-                    childArray = new JArray();
+                    childArray = new JObject();
                     root = childArray;
                 }
                 else
@@ -422,7 +422,7 @@ namespace TextTool
 
                 if (isList)
                 {
-                    childArray = new JArray();
+                    childArray = new JObject();
                     rootObj.Add(tableName, childArray);
                 }
                 else
@@ -486,7 +486,7 @@ namespace TextTool
                     if (isList)
                     {
                         childObj = new JObject();
-                        childArray.Add(childObj);
+                        
                     }
 
                     for (int i = 0; i < propertyData.Count; ++i)
@@ -497,6 +497,10 @@ namespace TextTool
                             string value = row_next[p.cell].ToString();
                             if (!string.IsNullOrEmpty(value))
                             {
+                                if (p.name.Equals("Id"))
+                                {
+                                    childArray.Add(value, childObj);
+                                }
 
                                 char[] spechar = new[] { ',' };
                                 switch (p.pType)
