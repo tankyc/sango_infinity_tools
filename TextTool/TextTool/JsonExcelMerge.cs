@@ -42,6 +42,18 @@ namespace TextTool
             uint64_array,
             float_array,
             double_array,
+            string_array_array,
+            bool_array_array,
+            int8_array_array,
+            uint8_array_array,
+            int16_array_array,
+            uint16_array_array,
+            int32_array_array,
+            uint32_array_array,
+            int64_array_array,
+            uint64_array_array,
+            float_array_array,
+            double_array_array,
         }
         struct PropertyData
         {
@@ -104,6 +116,30 @@ namespace TextTool
                         return ValueType.float_array;
                     case "ad":
                         return ValueType.double_array;
+                    case "aas":
+                        return ValueType.string_array_array;
+                    case "aab":
+                        return ValueType.int8_array_array;
+                    case "aai8":
+                        return ValueType.int8_array_array;
+                    case "aau8":
+                        return ValueType.uint8_array_array;
+                    case "aai16":
+                        return ValueType.int16_array_array;
+                    case "aau16":
+                        return ValueType.uint16_array_array;
+                    case "aai32":
+                        return ValueType.int32_array_array;
+                    case "aau32":
+                        return ValueType.uint32_array_array;
+                    case "aai64":
+                        return ValueType.int64_array_array;
+                    case "aau64":
+                        return ValueType.uint64_array_array;
+                    case "aaf":
+                        return ValueType.float_array_array;
+                    case "aad":
+                        return ValueType.double_array_array;
                     default:
                         return ValueType.none;
                 }
@@ -503,8 +539,107 @@ namespace TextTool
                                 }
 
                                 char[] spechar = new[] { ',' };
+                                char[] spechar_aa = new[] { ';' };
                                 switch (p.pType)
                                 {
+                                    case ValueType.string_array_array:
+                                        {
+                                            JArray aarray1 = new JArray();
+                                            string[] aarray = value.Split(spechar_aa);
+                                            for (int aj1 = 0; aj1 < aarray.Length; aj1++)
+                                            {
+                                                string avalue = aarray[aj1];
+                                                JArray array1 = new JArray();
+                                                string[] array = avalue.Split(spechar);
+                                                for (int j1 = 0; j1 < array.Length; j1++)
+                                                {
+                                                    array1.Add(array[j1]);
+                                                }
+                                                aarray1.Add(array1);
+                                            }
+                                            childObj.Add(p.name, aarray1);
+                                            break;
+                                        }
+                                    case ValueType.bool_array_array:
+                                        {
+                                            JArray aarray1 = new JArray();
+                                            string[] aarray = value.Split(spechar_aa);
+                                            for (int aj1 = 0; aj1 < aarray.Length; aj1++)
+                                            {
+                                                string avalue = aarray[aj1];
+                                                JArray array1 = new JArray();
+                                                string[] array = avalue.Split(spechar);
+                                                for (int j1 = 0; j1 < array.Length; j1++)
+                                                {
+                                                    array1.Add(new JValue(bool.Parse(array[j1])));
+                                                }
+                                                aarray1.Add(array1);
+                                            }
+                                            childObj.Add(p.name, aarray1);
+                                            break;
+                                        }
+                                    case ValueType.int8_array_array:
+                                    case ValueType.uint8_array_array:
+                                    case ValueType.int16_array_array:
+                                    case ValueType.uint16_array_array:
+                                    case ValueType.int32_array_array:
+                                    case ValueType.uint32_array_array:
+                                    case ValueType.int64_array_array:
+                                    case ValueType.uint64_array_array:
+                                        {
+                                            JArray aarray1 = new JArray();
+                                            string[] aarray = value.Split(spechar_aa);
+                                            for (int aj1 = 0; aj1 < aarray.Length; aj1++)
+                                            {
+                                                string avalue = aarray[aj1];
+                                                JArray array1 = new JArray();
+                                                string[] array = avalue.Split(spechar);
+                                                for (int j1 = 0; j1 < array.Length; j1++)
+                                                {
+                                                    array1.Add(new JValue(int.Parse(array[j1])));
+                                                }
+                                                aarray1.Add(array1);
+                                            }
+                                            childObj.Add(p.name, aarray1);
+                                            break;
+                                        }
+                                    case ValueType.float_array_array:
+                                        {
+                                            JArray aarray1 = new JArray();
+                                            string[] aarray = value.Split(spechar_aa);
+                                            for (int aj1 = 0; aj1 < aarray.Length; aj1++)
+                                            {
+                                                string avalue = aarray[aj1];
+                                                JArray array1 = new JArray();
+                                                string[] array = avalue.Split(spechar);
+                                                for (int j1 = 0; j1 < array.Length; j1++)
+                                                {
+                                                    array1.Add(new JValue(float.Parse(array[j1])));
+                                                }
+                                                aarray1.Add(array1);
+                                            }
+                                            childObj.Add(p.name, aarray1);
+                                            break;
+                                        }
+                                    case ValueType.double_array_array:
+                                        {
+                                            JArray aarray1 = new JArray();
+                                            string[] aarray = value.Split(spechar_aa);
+                                            for (int aj1 = 0; aj1 < aarray.Length; aj1++)
+                                            {
+                                                string avalue = aarray[aj1];
+                                                JArray array1 = new JArray();
+                                                string[] array = avalue.Split(spechar);
+                                                for (int j1 = 0; j1 < array.Length; j1++)
+                                                {
+                                                    array1.Add(new JValue(double.Parse(array[j1])));
+                                                }
+                                                aarray1.Add(array1);
+                                            }
+                                            childObj.Add(p.name, aarray1);
+                                            break;
+                                        }
+
                                     case ValueType.string_array:
                                         {
                                             JArray array1 = new JArray();
