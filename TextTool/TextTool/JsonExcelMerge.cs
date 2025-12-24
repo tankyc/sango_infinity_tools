@@ -54,6 +54,8 @@ namespace TextTool
             uint64_array_array,
             float_array_array,
             double_array_array,
+            jobj,
+            jarray
         }
         struct PropertyData
         {
@@ -140,6 +142,10 @@ namespace TextTool
                         return ValueType.float_array_array;
                     case "aad":
                         return ValueType.double_array_array;
+                    case "obj":
+                        return ValueType.jobj;
+                    case "aobj":
+                        return ValueType.jarray;
                     default:
                         return ValueType.none;
                 }
@@ -542,6 +548,18 @@ namespace TextTool
                                 char[] spechar_aa = new[] { ';' };
                                 switch (p.pType)
                                 {
+                                    case ValueType.jobj:
+                                        {
+                                            JObject jobj = JsonConvert.DeserializeObject<JObject>(value);
+                                            childObj.Add(p.name, jobj);
+                                            break;
+                                        }
+                                    case ValueType.jarray:
+                                        {
+                                            JArray jobj = JsonConvert.DeserializeObject<JArray>(value);
+                                            childObj.Add(p.name, jobj);
+                                            break;
+                                        }
                                     case ValueType.string_array_array:
                                         {
                                             JArray aarray1 = new JArray();
